@@ -36,8 +36,23 @@
   </main>
 
   <script>
+    // Alternative
+    const btn1 = document.getElementById('button1');
+    const btn2 = document.getElementById('button2');
+
+    // Note: Button has initial display value - "inline-block", so it's different than just "block".
+    // You can reset style to a default value by using "initial" value
+
+    const handler = (btn) => () => {
+      btn.style.display = btn.style.display === 'none' ? 'initial' : 'none';
+    }
+
+    btn1.addEventListener('click', handler(btn2));
+    btn2.addEventListener('click', handler(btn1));
+
     // reference the DOM 
 
+    /*
     const btn1 = document.getElementById('button1');
     const btn2 = document.getElementById('button2');
 
@@ -60,6 +75,7 @@
         btn1.style.display = 'none';
       }
     })
+    */
   </script>
 </body>
 </html>
