@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
   <header>
@@ -30,8 +31,25 @@
   <main>
     <section>
       <button id='btn'>button</button>
-      <img src="/hope.jpg" sizes="100px"/>
+      <img src="/hope.jpg"/>
+      <div id="img-con"></div>
     </section>
   </main>
+
+  <script>
+    const button = document.getElementById('btn');
+    const imgCon = document.getElementById('img-con');
+
+    button.addEventListener('click', () =>{
+      // creat an image Element and set an image to it 
+      const img = document.createElement('img');
+      img.src = 'hope.jpg';
+      img.width = '100px';
+      img.height = '100px';
+      
+      // append the image to the DIV element
+      imgCon.appendChild(img)
+    })
+  </script>
 </body>
 </html>
