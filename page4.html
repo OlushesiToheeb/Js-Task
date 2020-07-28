@@ -27,5 +27,41 @@
       </ul>
     </nav>
   </header>
+
+  <main>
+    <section>
+      <button id="btn">Add New No</button>
+      <ol id='list'>
+        <li>223</li>
+        <li>343</li>
+        <li>122</li>
+      </ol>
+
+      <div id='total'></div>
+    </section>
+  </main>
+
+  <script>
+     // reference the DOM
+
+     const btn = document.getElementById('btn');
+     const list = document.getElementById('list');
+     const total = document.getElementById('total');
+
+     btn.addEventListener('click', ()=>{
+       let random = Math.random() * 100;
+       let li = document.createElement('li');
+       li.textContent = Math.floor(random);
+       list.appendChild(li);
+
+
+       let m = [...document.querySelector("#list").children];
+       let val = 0;
+        m.forEach(function(item) {
+          val += parseInt(item.textContent);
+        })
+        total.innerHTML = `Sum:${eval(val)}`;
+     })
+  </script>
 </body>
 </html>
