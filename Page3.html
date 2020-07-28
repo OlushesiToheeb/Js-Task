@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
+<body >
   <header>
     <nav>
       <ul>
@@ -27,5 +27,20 @@
       </ul>
     </nav>
   </header>
+
+  <main>
+    <section>
+      <input type="text" id="input">
+    </section>
+  </main>
+  <script>
+
+    // reference the DOM
+    const input = document.getElementById('input');
+
+    input.addEventListener('blur', () =>{
+      alert(input.value);
+    })
+  </script>
 </body>
 </html>
