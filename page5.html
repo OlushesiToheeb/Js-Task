@@ -33,10 +33,12 @@
       body.style.backgroundColor = 'grey';
     })
 
+    window.addEventListener('mousedown', (evt) => {
+      body.style.backgroundColor = evt.button === 0 ? 'black' : 'white';
+    });
     
     window.addEventListener('contextmenu', function(ev) {
       ev.preventDefault();
-      body.style.backgroundColor = 'black';
       return false;
     }, false);
   </script>
