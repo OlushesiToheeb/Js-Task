@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page 3</title>
+</head>
+<body>
+  <table>
+    <tr>
+      <td class='hey'>hey</td>
+      <td class='you'>you</td>
+      <td class='yes'>yes</td>
+      <td class='u'>U</td>
+    </tr>
+  </table>
+
+  <ul>
+    <li>
+      <input type="checkbox" name="name" value="hey"> Hey 
+    </li>
+    <li>
+      <input type="checkbox" name="name" value="you"> You 
+    </li>
+    <li>
+      <input type="checkbox" name="name" value="yes"> Yes 
+    </li>
+    <li>
+      <input type="checkbox" name="name" value="U"> U
+    </li>
+  </ul>
+
+  <script>
+     const btn = document.getElementById('button');
+     const tds = document.querySelectorAll('td');
+     console.log(tds)
+     const names = document.querySelectorAll('input[name="name"]');
+     console.log(names)
+
+    names.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        tds.forEach(td =>{
+          if(checkbox.checked && td.innerHTML === checkbox.value){
+            td.style.display = 'none'
+          }else{
+            td.style.display = 'initial'
+          }
+        })
+      });
+    });
+    
+  </script>
+</body>
+</html>
