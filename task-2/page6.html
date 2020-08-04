@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page 6</title>
+</head>
+<body>
+  <input type="text" value="Copy Me!" id="myInput">
+  <button id="btn">Copy text</button>
+
+  <script>
+    const btn = document.getElementById('btn');
+    const copyText = document.getElementById('myInput');
+    btn.addEventListener('click', () =>{
+      copyText.select();
+      document.execCommand("copy");
+      alert("Copied to clipboard: " + copyText.value);
+    })
+  </script>
+</body>
+</html>

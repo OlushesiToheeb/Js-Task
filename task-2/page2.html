@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>page 2</title>
+</head>
+<body>
+  <table>
+    <tr>
+      <th>id</th>
+      <th>Name</th>
+      <th>SurName</th>
+    </tr>
+    <tr>
+      <td>02</td>
+      <td>Roman</td>
+      <td>Polansky</td>
+    </tr>
+    <tr>
+      <td>03</td>
+      <td>Ola</td>
+      <td>Wasu</td>
+    </tr>
+    <tr>
+      <td>04</td>
+      <td>Grea</td>
+      <td>Dre</td>
+    </tr>
+    <tr>
+      <td>05</td>
+      <td>Roger</td>
+      <td>Dart</td>
+    </tr>
+  </table>
+  <button>Download</button>
+
+  <script>
+    function download_csv(csv, filename) {
+        let csvFile;
+        let downloadLink;
+
+        // CSV FILE
+        csvFile = new Blob([csv], {type: "text/csv"});
+
+        // Download link
+        downloadLink = document.createElement("a");
+
+        // File name
+        downloadLink.download = filename;
+
+        // We have to create a link to the file
+        downloadLink.href = window.URL.createObjectURL(csvFile);
+
+        // Make sure that the link is not displayed
+        downloadLink.style.display = "none";
+
+        // Add the link to your DOM
+        document.body.appendChild(downloadLink);
+
+        // Lanzamos
+        downloadLink.click();
+    }
+
+    function export_table_to_csv(html, filename) {
+      let csv = [];
+      let rows = document.querySelectorAll("table tr");
+      
+        for (let i = 0; i < rows.length; i++) {
+        let row = [], cols = rows[i].querySelectorAll("td, th");
+        
+            for (let j = 0; j < cols.length; j++) 
+                row.push(cols[j].innerText);
+            
+        csv.push(row.join(","));		
+      }
+
+        // Download CSV
+        download_csv(csv.join("\n"), filename);
+    }
+
+    document.querySelector("button").addEventListener("click", function () {
+        let html = document.querySelector("table").outerHTML;
+      export_table_to_csv(html, "table.csv");
+    });
+
+  </script>
+</body>
+</html>
