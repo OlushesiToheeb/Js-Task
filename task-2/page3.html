@@ -8,44 +8,80 @@
 <body>
   <table>
     <tr>
-      <td class='hey'>hey</td>
-      <td class='you'>you</td>
-      <td class='yes'>yes</td>
-      <td class='u'>U</td>
+      <td id='firstName'>
+        <table>
+          <tr><th>First name</th></tr>
+          <tr><td>David</td></tr>
+          <tr><td>Frank</td></tr>
+          <tr><td>Bob</td></tr>
+        </table>
+      </td>
+  
+      <td id='lastName'>
+        <table>
+          <tr><th>Last name</th></tr>
+          <tr><td>David</td></tr>
+          <tr><td>Frank</td></tr>
+          <tr><td>Bob</td></tr>
+        </table>
+      </td>
+  
+      <td id='thirdName'>
+        <table>
+          <tr><th>Third name</th></tr>
+          <tr><td>David</td></tr>
+          <tr><td>Frank</td></tr>
+          <tr><td>Bob</td></tr>
+        </table>
+      </td>
+      
     </tr>
   </table>
-
   <ul>
     <li>
-      <input type="checkbox" name="name" value="hey"> Hey 
+      <input type="checkbox" name="name" value="firstName"> FIRSTNAME 
     </li>
     <li>
-      <input type="checkbox" name="name" value="you"> You 
+      <input type="checkbox" name="name" value="lastName"> LASTNAME 
     </li>
     <li>
-      <input type="checkbox" name="name" value="yes"> Yes 
-    </li>
-    <li>
-      <input type="checkbox" name="name" value="U"> U
+      <input type="checkbox" name="name" value="thirdName"> THIRDNAME
     </li>
   </ul>
 
   <script>
      const btn = document.getElementById('button');
-     const tds = document.querySelectorAll('td');
-     console.log(tds)
+     const firstName = document.getElementById('firstName');
+     const lastName = document.getElementById('lastName');
+     const thirdName = document.getElementById('thirdName');
      const names = document.querySelectorAll('input[name="name"]');
-     console.log(names)
 
     names.forEach(checkbox => {
       checkbox.addEventListener('change', () => {
-        tds.forEach(td =>{
-          if(checkbox.checked && td.innerHTML === checkbox.value){
-            td.style.display = 'none'
-          }else{
-            td.style.display = 'initial'
-          }
-        })
+        if(
+          checkbox.checked && 
+          checkbox.value === 'firstName'){
+          firstName.style.display = 'none'
+        }else{
+          firstName.style.display = 'block'
+        }
+
+        if(
+          checkbox.checked && 
+          checkbox.value === 'lastName'){
+          lastName.style.display = 'none'
+        }else{
+          lastName.style.display = 'block'
+        }
+
+        if(
+          checkbox.checked && 
+          checkbox.value === 'thirdName'){
+          thirdName.style.display = 'none'
+        }else{
+          thirdName.style.display = 'block'
+        }
+        
       });
     });
     
