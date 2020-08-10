@@ -1,33 +1,25 @@
-window.addEventListener("load", () => {
-  const smallBlock = document.getElementById("smallBlock");
+const smallBlock = document.getElementById("smallBlock");
+const add = document.getElementById("add");
+const desc = document.getElementById("desc");
+const assign = document.getElementById("assign");
+let severity = document.getElementById("severity");
 
-  function generateId() {
-    return (
-      Math.random().toString(36).substring(2) +
-      new Date().getTime().toString(36)
-    );
-  }
+function generateId() {
+  return (
+    Math.random().toString(36).substring(2) + new Date().getTime().toString(36)
+  );
+}
 
-  const issues = [
-    {
-      id: generateId(),
-      description: "Fight",
-      severity: "Low",
-      assigned: "John",
-    },
-    {
-      id: generateId(),
-      description: "Freedom",
-      severity: "High",
-      assigned: "Fred",
-    },
-    {
-      id: generateId(),
-      description: "War",
-      severity: "Medium",
-      assigned: "Dart",
-    },
-  ];
+add.addEventListener("click", (e) => {
+  e.preventDefault();
+  let issues = [];
+  let issue = {
+    id: generateId(),
+    description: desc.value,
+    severity: severity.options[severity.selectedIndex].text,
+    assigned: assign.value,
+  };
+  issues.push(issue);
 
   let block = issues.map((issue) => {
     return `
