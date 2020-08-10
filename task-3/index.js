@@ -10,10 +10,11 @@ function generateId() {
   );
 }
 
+const issues = [];
+
 add.addEventListener("click", (e) => {
   e.preventDefault();
-  let issues = [];
-  let issue = {
+  const issue = {
     id: generateId(),
     description: desc.value,
     severity: severity.options[severity.selectedIndex].text,
