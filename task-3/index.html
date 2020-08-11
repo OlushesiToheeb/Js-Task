@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanilla App 1</title>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section class="app">
+      <header class="app__header">
+        <nav class="app-nav">
+          <ul>
+            <li>Big title</li>
+            <li>small title</li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <div class="app__main-block">
+          <h2>Add New Issue:</h2>
+          <form action="" class="app__main-block-form">
+            <div class="form-input">
+              <label for="desc">Description</label>
+              <input type="text" placeholder="Describe the issue" id="desc">
+            </div>
+            <div class="form-input">
+              <label for="severity">Severity</label>
+              <select name="severity" id="severity">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+            <div class="form-input">
+              <label for="assign">Assigned To</label>
+              <input type="text" placeholder="Enter responsible" id="assign" >
+            </div>
+            <button class="form-button" id="add">Add</button>
+          </form>
+        </div>
+        <div class=app__small-block" style="padding: 16px" id="smallBlock">
+        </div>
+      </main>
+    </section>
+    <script src="index.js"></script>
+  </body>
+</html>
