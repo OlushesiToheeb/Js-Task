@@ -24,7 +24,7 @@ add.addEventListener("click", (e) => {
 
   let block = issues.map((issue) => {
     return `
-        <div class="small-block">
+        <div class="small-block" id="small">
           <h4 class='issue-id'>Issue ID: ${issue.id}</h4>
           <h2 class='description'>${issue.description}</h2>
           <p>Severity: ${issue.severity}</p>
@@ -35,4 +35,17 @@ add.addEventListener("click", (e) => {
   });
 
   smallBlock.innerHTML = block;
+
+  const btnDelete = document.getElementById("delete");
+  const small = document.getElementById("small");
+
+  btnDelete.addEventListener("click", () => {
+    for (var i = 0; i < issues.length; i++) {
+      if (issues[i].id) {
+        issues.splice(i, 1);
+        small.style.display = "none";
+        break;
+      }
+    }
+  });
 });
