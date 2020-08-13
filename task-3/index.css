@@ -120,7 +120,7 @@
   color: #000;
 }
 
-#delete {
+.delete {
   border: none;
   outline: none;
   color: #fff;

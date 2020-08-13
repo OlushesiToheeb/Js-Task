@@ -14,38 +14,34 @@ const issues = [];
 
 add.addEventListener("click", (e) => {
   e.preventDefault();
+
+  const id = generateId();
   const issue = {
-    id: generateId(),
+    id,
     description: desc.value,
     severity: severity.options[severity.selectedIndex].text,
     assigned: assign.value,
   };
   issues.push(issue);
 
-  let block = issues.map((issue) => {
-    return `
-        <div class="small-block" id="small">
-          <h4 class='issue-id'>Issue ID: ${issue.id}</h4>
-          <h2 class='description'>${issue.description}</h2>
-          <p>Severity: ${issue.severity}</p>
-          <p>Assigned: ${issue.assigned}</p>
-          <button id="delete">Delete</button>
-        </div>
-      `;
-  });
+  const newBlock = document.createElement('div');
+  newBlock.classList.add('small-block');
+  newBlock.innerHTML = `
+    <h4 class='issue-id'>Issue ID: ${issue.id}</h4>
+    <h2 class='description'>${issue.description}</h2>
+    <p>Severity: ${issue.severity}</p>
+    <p>Assigned: ${issue.assigned}</p>
+    <button class="delete">Delete</button>
+  `;
 
-  smallBlock.innerHTML = block;
+  smallBlock.appendChild(newBlock);
 
-  const btnDelete = document.getElementById("delete");
-  const small = document.getElementById("small");
+  const btnDelete = newBlock.querySelector(".delete");
+  const small = newBlock.querySelector(".small-block");
 
-  btnDelete.addEventListener("click", (e) => {
-    e.preventDefault()
-    issues.filter(is => {
-      if (is.id) {
-        console.log(is.id)
-        small.style.display = "none";
-      }
-    })
+  btnDelete.addEventListener("click", () => {
+    const index = issues.findIndex(is => is.id === id)
+    issues.splice(index, 1);
+    newBlock.parentNode.removeChild(newBlock);
   });
 });
