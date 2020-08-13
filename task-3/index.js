@@ -39,13 +39,13 @@ add.addEventListener("click", (e) => {
   const btnDelete = document.getElementById("delete");
   const small = document.getElementById("small");
 
-  btnDelete.addEventListener("click", () => {
-    for (var i = 0; i < issues.length; i++) {
-      if (issues[i].id) {
-        issues.splice(i, 1);
+  btnDelete.addEventListener("click", (e) => {
+    e.preventDefault()
+    issues.filter(is => {
+      if (is.id) {
+        console.log(is.id)
         small.style.display = "none";
-        break;
       }
-    }
+    })
   });
 });
