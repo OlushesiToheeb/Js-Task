@@ -36,6 +36,10 @@ add.addEventListener("click", (e) => {
 
   smallBlock.appendChild(newBlock);
 
+  desc.value = "";
+  severity.options[severity.selectedIndex].text = "Low";
+  assign.value = "";
+
   const btnDelete = newBlock.querySelector(".delete");
   const small = newBlock.querySelector(".small-block");
 
