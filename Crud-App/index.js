@@ -23,6 +23,7 @@ add.addEventListener("click", (e) => {
     assigned: assign.value,
   };
   issues.push(issue);
+  localStorage.setItem("Issue", JSON.stringify(issue));
 
   const newBlock = document.createElement("div");
   newBlock.classList.add("small-block");
