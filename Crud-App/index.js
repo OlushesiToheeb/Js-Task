@@ -31,7 +31,7 @@ add.addEventListener("click", (e) => {
     <h2 class='description'>${issue.description}</h2>
     <p>Severity: ${issue.severity}</p>
     <p>Assigned: ${issue.assigned}</p>
-    <button class="delete">Delete</button>
+    <button class="delete"><i class="fa fa-trash"></i></button>
   `;
 
   smallBlock.appendChild(newBlock);

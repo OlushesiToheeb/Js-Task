@@ -90,9 +90,14 @@
   outline: none;
   color: #fff;
   background-color: #3379b7;
-  padding: 15px;
+  padding: 10px 20px;
   border-radius: 5px;
   margin-top: 10px;
+}
+
+.form-button i {
+  font-size: 16px;
+  transition: all 0.5s;
 }
 
 .small-block {
@@ -125,7 +130,16 @@
   outline: none;
   color: #fff;
   background-color: #d8544f;
-  padding: 15px;
+  padding: 10px 20px;
   border-radius: 5px;
   margin-top: 10px;
+}
+
+.delete i {
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+i:hover {
+  transform: scale(1.4);
 }
