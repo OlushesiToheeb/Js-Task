@@ -6,6 +6,20 @@ window.addEventListener("load", (e) => {
   const assign = document.getElementById("assign");
   let severity = document.getElementById("severity");
 
+  const smallBlockUI = (issue) => {
+    const newBlock = document.createElement("div");
+    newBlock.classList.add("small-block");
+    newBlock.innerHTML = `
+      <h4 class='issue-id'>Issue ID: ${issue.id}</h4>
+      <h2 class='description'>${issue.description}</h2>
+      <p>Severity: ${issue.severity}</p>
+      <p>Assigned: ${issue.assigned}</p>
+      <button class="delete"><i class="fa fa-trash"></i></button>
+    `;
+
+    return smallBlock.appendChild(newBlock);
+  };
+
   function generateId() {
     return (
       Math.random().toString(36).substring(2) +
@@ -17,26 +31,13 @@ window.addEventListener("load", (e) => {
 
   const data = JSON.parse(localStorage.getItem("Issue"));
   console.log(data);
-  let issue = {
-    id: data.id,
-    description: data.description,
-    severity: data.severity,
-    assigned: data.assigned,
-  };
-
-  console.log(issue);
-
-  const newBlock = document.createElement("div");
-  newBlock.classList.add("small-block");
-  newBlock.innerHTML = `
-      <h4 class='issue-id'>Issue ID: ${issue.id}</h4>
-      <h2 class='description'>${issue.description}</h2>
-      <p>Severity: ${issue.severity}</p>
-      <p>Assigned: ${issue.assigned}</p>
-      <button class="delete"><i class="fa fa-trash"></i></button>
-    `;
-
-  smallBlock.appendChild(newBlock);
+  if (data === null) {
+    alert("localStorage is empty!");
+  } else {
+    data.map((issue) => {
+      return smallBlockUI(issue);
+    });
+  }
 
   add.addEventListener("click", (e) => {
     e.preventDefault();
@@ -58,17 +59,7 @@ window.addEventListener("load", (e) => {
       localStorage.setItem("Issue", JSON.stringify(data));
     }
 
-    const newBlock = document.createElement("div");
-    newBlock.classList.add("small-block");
-    newBlock.innerHTML = `
-      <h4 class='issue-id'>Issue ID: ${issue.id}</h4>
-      <h2 class='description'>${issue.description}</h2>
-      <p>Severity: ${issue.severity}</p>
-      <p>Assigned: ${issue.assigned}</p>
-      <button class="delete"><i class="fa fa-trash"></i></button>
-    `;
-
-    smallBlock.appendChild(newBlock);
+    smallBlockUI(issue);
 
     desc.value = "";
     assign.value = "";
