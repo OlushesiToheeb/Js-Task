@@ -6,7 +6,33 @@ window.addEventListener("load", (e) => {
   const assign = document.getElementById("assign");
   let severity = document.getElementById("severity");
 
-  const smallBlockUI = (issue) => {
+  const issues = [];
+
+  function generateId() {
+    return (
+      Math.random().toString(36).substring(2) +
+      new Date().getTime().toString(36)
+    );
+  }
+
+  const addToLocalStorage = (data) => {
+    if (data === null) {
+      alert("localStorage is empty!");
+    } else {
+      data.map((issue) => {
+        return smallBlockUI(issue);
+      });
+    }
+    return data;
+  };
+
+  const removeFromLocalStorage = (id) => {
+    const index = issues.findIndex((is) => is.id === id);
+    issues.splice(index, 1);
+    localStorage.setItem("Issue", JSON.stringify(issues));
+  };
+
+  const smallBlockUI = (issue, id) => {
     const newBlock = document.createElement("div");
     newBlock.classList.add("small-block");
     newBlock.innerHTML = `
@@ -17,31 +43,23 @@ window.addEventListener("load", (e) => {
       <button class="delete"><i class="fa fa-trash"></i></button>
     `;
 
+    const btnDelete = newBlock.querySelector(".delete");
+    const small = newBlock.querySelector(".small-block");
+
+    btnDelete.addEventListener("click", () => {
+      removeFromLocalStorage(id);
+      newBlock.parentNode.removeChild(newBlock);
+    });
+
     return smallBlock.appendChild(newBlock);
   };
 
-  function generateId() {
-    return (
-      Math.random().toString(36).substring(2) +
-      new Date().getTime().toString(36)
-    );
-  }
-
-  const issues = [];
-
   const data = JSON.parse(localStorage.getItem("Issue"));
-  console.log(data);
-  if (data === null) {
-    alert("localStorage is empty!");
-  } else {
-    data.map((issue) => {
-      return smallBlockUI(issue);
-    });
-  }
+  addToLocalStorage(data);
 
   add.addEventListener("click", (e) => {
-    e.preventDefault();
     const id = generateId();
+    e.preventDefault();
     let issue = {
       id,
       description: desc.value,
@@ -50,7 +68,6 @@ window.addEventListener("load", (e) => {
     };
     issues.push(issue);
     let issueLS = localStorage.getItem("Issue");
-    console.log(issueLS);
     if (issueLS === null) {
       localStorage.setItem(`Issue`, JSON.stringify(issues));
     } else {
@@ -59,18 +76,9 @@ window.addEventListener("load", (e) => {
       localStorage.setItem("Issue", JSON.stringify(data));
     }
 
-    smallBlockUI(issue);
+    smallBlockUI(issue, id);
 
     desc.value = "";
     assign.value = "";
-
-    const btnDelete = newBlock.querySelector(".delete");
-    const small = newBlock.querySelector(".small-block");
-
-    btnDelete.addEventListener("click", () => {
-      const index = issues.findIndex((is) => is.id === id);
-      issues.splice(index, 1);
-      newBlock.parentNode.removeChild(newBlock);
-    });
   });
 });
