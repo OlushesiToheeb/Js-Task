@@ -1,5 +1,7 @@
 window.addEventListener("load", (e) => {
   e.preventDefault();
+
+  //reference the dom
   const smallBlock = document.getElementById("smallBlock");
   const add = document.getElementById("add");
   const desc = document.getElementById("desc");
@@ -8,6 +10,7 @@ window.addEventListener("load", (e) => {
 
   const issues = [];
 
+  // generate unique id
   function generateId() {
     return (
       Math.random().toString(36).substring(2) +
@@ -15,7 +18,8 @@ window.addEventListener("load", (e) => {
     );
   }
 
-  const addToLocalStorage = (data) => {
+  //load data from localStorage
+  const LoadDataLocalStorageHandler = (data) => {
     if (data === null) {
       alert("localStorage is empty!");
     } else {
@@ -26,12 +30,14 @@ window.addEventListener("load", (e) => {
     return data;
   };
 
+  // remove an item from the array of objects from localSotrage and also th UI
   const removeFromLocalStorage = (id) => {
     const index = issues.findIndex((is) => is.id === id);
     issues.splice(index, 1);
     localStorage.setItem("Issue", JSON.stringify(issues));
   };
 
+  // the smallBlock Ui
   const smallBlockUI = (issue, id) => {
     const newBlock = document.createElement("div");
     newBlock.classList.add("small-block");
@@ -40,7 +46,8 @@ window.addEventListener("load", (e) => {
       <h2 class='description'>${issue.description}</h2>
       <p>Severity: ${issue.severity}</p>
       <p>Assigned: ${issue.assigned}</p>
-      <button class="delete"><i class="fa fa-trash"></i></button>
+      <button class="edit"><i class="fa fa-pencil"></i> Edit</button>
+      <button class="delete"><i class="fa fa-trash"></i> Delete</button>
     `;
 
     const btnDelete = newBlock.querySelector(".delete");
@@ -55,8 +62,9 @@ window.addEventListener("load", (e) => {
   };
 
   const data = JSON.parse(localStorage.getItem("Issue"));
-  addToLocalStorage(data);
+  LoadDataLocalStorageHandler(data);
 
+  // add users input to the Ui and localStorage
   add.addEventListener("click", (e) => {
     const id = generateId();
     e.preventDefault();

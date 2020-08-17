@@ -60,7 +60,7 @@
 
 .form-input input::placeholder {
   color: #939393;
-  font-style: italic;
+  font-family: "Open Sans", sans-serif;
 }
 
 .form-input input:focus {
@@ -78,11 +78,17 @@
 
 .form-input select:optional {
   color: #939393;
-  font-style: italic;
+  font-family: "Open Sans", sans-serif;
 }
 
 .form-input select:focus {
   border: 1px solid #6ab1e9;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .form-button {
@@ -140,6 +146,36 @@
   transition: all 0.2s;
 }
 
+.edit {
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+  background-color: #117a8b;
+  border: none;
+  outline: none;
+}
+
+.edit i {
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
 i:hover {
   transform: scale(1.4);
+}
+
+#back {
+  background-color: #545b62;
+  border-color: #4e555b;
+}
+
+#update {
+  color: #212529;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.ds-none {
+  display: none;
 }
