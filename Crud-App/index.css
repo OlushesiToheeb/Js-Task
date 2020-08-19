@@ -36,6 +36,7 @@
   border-radius: 5px;
   background-color: #eeeeee;
   padding: 3em;
+  margin-bottom: 35px;
 }
 
 .form-input {
@@ -178,4 +179,72 @@ i:hover {
 
 .ds-none {
   display: none;
+}
+
+.searchFilter__wrapper {
+  background-color: #fff;
+  padding: 0.5em 3em;
+  box-shadow: 0 0 20px #dbd9d9;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.filter-wrapper p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  padding-right: 5px;
+}
+
+.filter-wrapper select {
+  border: none;
+  outline: none;
+  padding: 0 5px;
+  border-bottom: 1px solid #939393;
+}
+
+.filter-wrapper select:optional {
+  color: #939393;
+  font-family: "Open Sans", sans-serif;
+}
+
+.filter-wrapper select:focus {
+  border-bottom: 2px solid #939393;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.search-wrapper p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  padding-right: 5px;
+}
+
+.search-wrapper input {
+  border: none;
+  outline: none;
+  padding: 0 5px;
+  border-bottom: 1px solid #939393;
+  width: 90px;
+}
+
+.search-wrapper input::placeholder {
+  color: #939393;
+  font-family: "Open Sans", sans-serif;
+}
+.search-wrapper input:focus {
+  border-bottom: 2px solid #939393;
 }
