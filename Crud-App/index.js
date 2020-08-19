@@ -7,10 +7,10 @@ window.addEventListener("load", (e) => {
   const desc = document.getElementById("desc");
   const assign = document.getElementById("assign");
   let severity = document.getElementById("severity");
-  const newBlock = document.createElement("div");
 
   const issues = [];
   let filterId = "";
+  let inEditingElement = null;
 
   // generate unique id
   function generateId() {
@@ -34,14 +34,14 @@ window.addEventListener("load", (e) => {
 
   // remove an item from the array of objects from localSotrage
   const removeFromLocalStorage = (id) => {
-    const index = issues.findIndex((is) => is.id === id);
-    issues.splice(index, 1);
-    localStorage.setItem("Issue", JSON.stringify(issues));
+    const data = JSON.parse(localStorage.getItem("Issue"));
+    const index = data.findIndex((is) => is.id === id);
+    data.splice(index, 1);
+    localStorage.setItem("Issue", JSON.stringify(data));
   };
 
   // remove an item from the array of objects from localSotrage and also th UI
-  const removeFromLocalStorageHandler = (id, newBlock) => {
-    removeFromLocalStorage(id);
+  const removeFromLocalStorageHandler = (newBlock) => {
     newBlock.parentNode.removeChild(newBlock);
   };
 
@@ -58,10 +58,11 @@ window.addEventListener("load", (e) => {
     document.querySelector("#back").classList.add("ds-none");
     desc.value = "";
     assign.value = "";
+    inEditingElement = null;
   };
 
   //edit post
-  const editPostHandler = (e, id, issueLS) => {
+  const editPostHandler = (e, id, issueLS, block) => {
     e.preventDefault();
     const data = localStorage.getItem("Issue");
     const issueId = issueLS.find((is) => is.id === id);
@@ -70,43 +71,27 @@ window.addEventListener("load", (e) => {
     desc.value = filterId.description;
     severity.options[severity.selectedIndex].text = filterId.severity;
     assign.value = filterId.assigned;
+    inEditingElement = block;
     inEditMode();
   };
 
   const updatePost = (e) => {
-    console.log(filterId);
     e.preventDefault();
     const data = JSON.parse(localStorage.getItem("Issue"));
     const issueId = data.find((is) => is.id === filterId.id);
-    console.log(data, issueId);
     issueId.description = desc.value;
     issueId.severity = severity.options[severity.selectedIndex].text;
     issueId.assigned = assign.value;
     localStorage.setItem("Issue", JSON.stringify(data));
-    updatePostUi(data);
-  };
-
-  const updatePostUi = (data) => {
-    e.preventDefault();
-    newBlock.classList.add("small-block");
-    let output = "";
-    data.forEach((item) => {
-      output += `
-      <h4 class='issue-id'>Issue ID: ${item.id}</h4>
-      <h2 class='description'>${item.description}</h2>
-      <p>Severity: ${item.severity}</p>
-      <p>Assigned: ${item.assigned}</p>
-      <button class="edit"><i class="fa fa-pencil"></i> Edit</button>
-      <button class="delete"><i class="fa fa-trash"></i> Delete</button>
-    `;
-    });
-    newBlock.innerHTML = output;
-    smallBlock.appendChild(newBlock);
+    updatePostUI(data, issueId);
     outEditMode(e);
   };
 
-  //  Post UI
-  const smallBlockUI = (issue, id, data) => {
+  const updatePostUI = (data, issueId) => {
+    postUi(inEditingElement, issueId, issueId.id, data);
+  };
+
+  const postUi = (newBlock, issue, id, data) => {
     newBlock.classList.add("small-block");
     newBlock.innerHTML = `
       <h4 class='issue-id'>Issue ID: ${issue.id}</h4>
@@ -116,17 +101,25 @@ window.addEventListener("load", (e) => {
       <button class="edit"><i class="fa fa-pencil"></i> Edit</button>
       <button class="delete"><i class="fa fa-trash"></i> Delete</button>
     `;
-
     const btnDelete = newBlock.querySelector(".delete");
     const btnEdit = newBlock.querySelector(".edit");
     const small = newBlock.querySelector(".small-block");
 
-    btnDelete.addEventListener("click", () =>
-      removeFromLocalStorageHandler(id, newBlock)
+    btnDelete.addEventListener("click", (e) => {
+      removeFromLocalStorageHandler(newBlock);
+      removeFromLocalStorage(id);
+      e.preventDefault();
+    });
+
+    btnEdit.addEventListener("click", (e) =>
+      editPostHandler(e, id, data, newBlock)
     );
+  };
 
-    btnEdit.addEventListener("click", (e) => editPostHandler(e, id, data));
-
+  //  Post UI
+  const smallBlockUI = (issue, id, data) => {
+    const newBlock = document.createElement("div");
+    postUi(newBlock, issue, id, data);
     return smallBlock.appendChild(newBlock);
   };
 
