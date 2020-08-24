@@ -3,14 +3,18 @@ window.addEventListener("load", (e) => {
 
   //reference the dom
   const smallBlock = document.getElementById("smallBlock");
+  const searchBlock = document.getElementById("searchResult");
   const add = document.getElementById("add");
   const desc = document.getElementById("desc");
   const assign = document.getElementById("assign");
   let severity = document.getElementById("severity");
+  const selectFilter = document.getElementById("filter");
+  const search = document.getElementById("search");
 
   const issues = [];
   let filterId = "";
   let inEditingElement = null;
+  let searchField = null;
 
   // generate unique id
   function generateId() {
@@ -67,7 +71,6 @@ window.addEventListener("load", (e) => {
     const data = localStorage.getItem("Issue");
     const issueId = issueLS.find((is) => is.id === id);
     filterId = JSON.parse(data).find((issue) => issue.id === issueId.id);
-    console.log(filterId);
     desc.value = filterId.description;
     severity.options[severity.selectedIndex].text = filterId.severity;
     assign.value = filterId.assigned;
@@ -103,7 +106,6 @@ window.addEventListener("load", (e) => {
     `;
     const btnDelete = newBlock.querySelector(".delete");
     const btnEdit = newBlock.querySelector(".edit");
-    const small = newBlock.querySelector(".small-block");
 
     btnDelete.addEventListener("click", (e) => {
       removeFromLocalStorageHandler(newBlock);
@@ -120,7 +122,15 @@ window.addEventListener("load", (e) => {
   const smallBlockUI = (issue, id, data) => {
     const newBlock = document.createElement("div");
     postUi(newBlock, issue, id, data);
+
     return smallBlock.appendChild(newBlock);
+  };
+
+  const searchBlockUI = (issue, id, data) => {
+    const newBlock = document.createElement("div");
+    postUi(newBlock, issue, id, data);
+
+    return searchBlock.appendChild(newBlock);
   };
 
   // add post to ui
@@ -133,26 +143,44 @@ window.addEventListener("load", (e) => {
       severity: severity.options[severity.selectedIndex].text,
       assigned: assign.value,
     };
-    issues.push(issue);
+
     let issueLS = localStorage.getItem("Issue");
+
     if (issueLS === null) {
+      issues.push(issue);
       localStorage.setItem(`Issue`, JSON.stringify(issues));
     } else {
       let data = JSON.parse(issueLS);
       data.push(issue);
+      issues.push(issue);
       localStorage.setItem("Issue", JSON.stringify(data));
+      smallBlockUI(issue, id, issues);
     }
-
-    let data = JSON.parse(localStorage.getItem("Issue"));
-
-    smallBlockUI(issue, id, data);
 
     desc.value = "";
     assign.value = "";
   };
 
+  selectFilter.addEventListener("change", (e) => {
+    e.preventDefault();
+    searchField = e.target.value;
+  });
+
+  search.addEventListener("change", (e) => {
+    e.preventDefault();
+    const filteredIssue = issues
+      .filter((issue) => issue[searchField.toLowerCase()] === e.target.value)
+      .map((issue) => {
+        searchBlock.classList.add("search");
+        searchBlockUI(issue, issue.id, issues);
+      });
+  });
+
   const data = JSON.parse(localStorage.getItem("Issue"));
-  LoadDataLocalStorageHandler(data);
+  data.forEach((issue) => {
+    issues.push(issue);
+  });
+  LoadDataLocalStorageHandler(issues);
 
   // add users input to the Ui and localStorage
   add.addEventListener("click", (e) => addPostHandler(e));
